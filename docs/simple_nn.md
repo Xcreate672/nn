@@ -59,3 +59,49 @@
 - 回归问题
 - 模式识别
 - 函数逼近
+- 
+## 代码示例
+
+使用 PyTorch 实现一个简单的两层神经网络：
+
+```python
+import torch
+import torch.nn as nn
+
+class SimpleNN(nn.Module):
+    """简单两层全连接神经网络"""
+    def __init__(self, input_dim, hidden_dim, output_dim):
+        super(SimpleNN, self).__init__()
+        self.net = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, output_dim)
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
+# 创建模型
+model = SimpleNN(input_dim=2, hidden_dim=16, output_dim=1)
+print(model)
+```
+
+## 运行环境
+
+- Python 3.7+
+- PyTorch 1.8+
+
+## 运行步骤
+
+```bash
+cd src/chap04_simple_nn
+python main.py
+```
+
+## 与其他模型的对比
+
+| 模型 | 特点 | 适用场景 |
+|------|-----|---------|
+| 线性回归 | 无隐藏层，只能线性分类 | 线性可分数据 |
+| 简单神经网络 | 一到两个隐藏层 | 非线性简单任务 |
+| CNN | 卷积结构，擅长图像 | 图像识别 |
