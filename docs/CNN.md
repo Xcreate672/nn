@@ -38,3 +38,40 @@
 - 图像分割
 - 人脸识别
 - 医学影像分析
+  
+## 代码示例
+
+使用 PyTorch 定义一个基础 CNN 网络：
+
+```python
+import torch.nn as nn
+
+class BasicCNN(nn.Module):
+    """基础卷积神经网络"""
+    def __init__(self, num_classes=10):
+        super(BasicCNN, self).__init__()
+        self.features = nn.Sequential(
+            nn.Conv2d(3, 16, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2, 2),
+            nn.Conv2d(16, 32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2, 2),
+        )
+        self.classifier = nn.Linear(32 * 8 * 8, num_classes)
+
+    def forward(self, x):
+        x = self.features(x)
+        x = x.view(x.size(0), -1)
+        return self.classifier(x)
+```
+
+## 在 Carla 中的应用
+
+- **交通标识识别**：识别限速、停车等标识
+- **车道线检测**：提取图像中的车道线特征
+- **障碍物检测**：识别前方行人、车辆等障碍物
+
+## 参考资料
+
+- [PyTorch Conv2d 文档](https://pytorch.org/docs/stable/generated/torch.nn.Conv2d.html)
